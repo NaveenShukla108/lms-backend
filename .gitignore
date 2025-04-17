@@ -1,0 +1,15 @@
+#python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+#virtual Environment
+navzone/
+.env
+
+# VS Code / PyCharm
+.vscode/
+.idea/
+
+# OS generated
+.DS_Store
