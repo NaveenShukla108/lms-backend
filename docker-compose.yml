@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  user_service:
+    build: ./user_service
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./user_service:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  course_service:
+    build: ./course_service
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+    volumes:
+      - ./course_service:/app
+    ports:
+      - "8001:8001"
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: lms
+    ports:
+      - "5437:5432" 
