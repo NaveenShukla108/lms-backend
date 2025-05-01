@@ -8,8 +8,7 @@ services:
       - ./user_service:/app
     ports:
       - "8000:8000"
-    depends_on:
-      - db
+
 
   course_service:
     build: ./course_service
@@ -18,12 +17,3 @@ services:
       - ./course_service:/app
     ports:
       - "8001:8001"
-
-  db:
-    image: postgres
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: lms
-    ports:
-      - "5437:5432" 
