@@ -39,6 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+EXTERNALLY_ADDED = [
+    'rest_framework',
+    'user'
+]
+
+AUTH_USER_MODEL = "user.User"
+INSTALLED_APPS += EXTERNALLY_ADDED
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
