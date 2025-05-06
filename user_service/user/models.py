@@ -11,7 +11,7 @@ USER_ROLES = (
 class User(AbstractUser):
 
     full_name = models.CharField(max_length=50, null=False, blank=False)
-    username = models.CharField(null=False, blank=False, unique=True)
+    username = models.CharField(max_length=150, null=False, blank=False, unique=True)
     role = models.CharField(choices=USER_ROLES, default="guest", null=False, blank=False)
     email = models.EmailField(null=False, blank=False)
     is_verified = models.BooleanField(default=False)
