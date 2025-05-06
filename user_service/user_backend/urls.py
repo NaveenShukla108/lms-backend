@@ -24,5 +24,11 @@ router.register("register", RegisterViewset, basename="register")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/user/', include(router.urls), name="userurls")
+    path('api/user/', include(router.urls), name="userurls"),
+
+    path('accounts/', include('allauth.urls')),
+    path('auth/', include('dj_rest_auth.urls')),
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('auth/', include('allauth.socialaccount.urls')),
+
 ]

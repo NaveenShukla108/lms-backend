@@ -41,11 +41,44 @@ INSTALLED_APPS = [
 
 EXTERNALLY_ADDED = [
     'rest_framework',
-    'user'
+    'user',
+    'django.contrib.sites',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
 ]
+SITE_ID = 1
 
 AUTH_USER_MODEL = "user.User"
 INSTALLED_APPS += EXTERNALLY_ADDED
+
+
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+        'APP': {
+            'client_id': os.environ.get('client_GLE_id'),
+            'secret': os.environ.get('client_GLE_secret'),
+            'key': ''
+        }
+    }
+}
+
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,9 +86,15 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+  
 ]
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 ROOT_URLCONF = 'user_backend.urls'
 
