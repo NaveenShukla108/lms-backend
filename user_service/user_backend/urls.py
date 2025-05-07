@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from user.views import RegisterViewset
+from user.views import RegisterViewset, LoginViewset, MagiclinkLoginViewset
 
 router = DefaultRouter()
 router.register("register", RegisterViewset, basename="register")
+router.register("login", LoginViewset, basename="login")
+router.register("magic-link", MagiclinkLoginViewset, basename="magic-link-verify")
 
 urlpatterns = [
     path('admin/', admin.site.urls),

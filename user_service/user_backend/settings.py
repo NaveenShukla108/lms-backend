@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
 EXTERNALLY_ADDED = [
     'rest_framework',
+    'rest_framework_simplejwt',
     'user',
     'django.contrib.sites',
     'rest_framework.authtoken',
@@ -78,6 +79,16 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # JWT Authentication
+        'allauth.account.auth_backends.AuthenticationBackend',  # OAuth Authentication
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Default permission: User must be authenticated
+    ],
+}
 
 
 MIDDLEWARE = [
