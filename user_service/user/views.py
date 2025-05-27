@@ -3,7 +3,7 @@ from .serializer import RegisterSerializer, LoginSerializer, MagicLinkRequestSer
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 
@@ -65,3 +65,15 @@ class MagiclinkLoginViewset(viewsets.ModelViewSet):
         result = serializer.save()
         return Response(result, status=status.HTTP_200_OK)
 
+
+from .serializer import UserSerializer
+from rest_framework.decorators import action
+
+
+class MeViewset(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+
+    @action(detail=False, methods=['get'])
+    def me(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)

@@ -42,7 +42,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):    
         validated_data.pop("confirm_password")
-        validated_data["username"] = uuid.uuid4
+        validated_data["username"] = uuid.uuid4()
     
         user = User.objects.create_user(
             username=validated_data["username"],
@@ -166,3 +166,9 @@ class MagicLinkRequestSerializer(serializers.ModelSerializer):
                 return {"message": "Magic login link sent to your email."}
             
             return {"mail not sent"}
+        
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "email", "role", "full_name"] 
